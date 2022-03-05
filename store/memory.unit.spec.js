@@ -76,7 +76,7 @@ const storeConfig = {
   actions,
   namespaced: true,
 }
-describe('', () => {
+describe('Memory', () => {
   const createStore = () => {
     const localVue = createLocalVue()
     localVue.use(Vuex)
