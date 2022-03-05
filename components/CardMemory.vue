@@ -1,6 +1,6 @@
 <template>
-  <div class="deck">
-    <div class="card clickcard clicked">
+  <div class="deck" data-testid="check-memory" @click="check({ id, index })">
+    <div class="card clickcard">
       <div class="front face"></div>
       <div class="back face">
         <img data-testid="img" :src="urlImg" alt="" />
@@ -17,10 +17,25 @@ export default {
       required: false,
       default: '',
     },
+    id: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    index: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+  },
+  methods: {
+    check({ id, index }) {
+      this.$store.commit('memory/CHECK', { data: id, index })
+    },
   },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .clicked {
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
@@ -35,55 +50,64 @@ export default {
     }
   }
 }
-.deck {
-  margin: 15px;
-  width: 25%;
-  height: 280px;
-  position: relative;
-  -webkit-perspective: 1000px;
-  perspective: 1000px;
-  font-family: verdana;
-  border-radius: 10px;
 
-  .card {
-    width: 100%;
-    height: 100%;
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-    -webkit-transition: all 0.5s linear;
-    transition: all 0.5s linear;
+@media (min-width: 0px) {
+  .deck {
+    width: 19%;
+    height: 120px;
+    position: relative;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    font-family: verdana;
     border-radius: 10px;
-  }
+    cursor: pointer;
+    .card {
+      width: 100%;
+      height: 100%;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      -webkit-transition: all 0.5s linear;
+      transition: all 0.5s linear;
+      border-radius: 10px;
+    }
 
-  .face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    background-color: whitesmoke;
-    border-radius: 10px;
-  }
-  .back {
-    overflow: hidden;
-    z-index: -1;
-    display: block;
-    -webkit-transform: rotateY(180deg);
-    transform: rotateY(180deg);
-    box-sizing: border-box;
-    &:before {
-      content: '';
+    .face {
       position: absolute;
       width: 100%;
       height: 100%;
-      z-index: -1;
-      background-size: 100% 100%;
-      -webkit-transform: rotateY(180deg);
-      -moz-transform: rotateY(180deg);
-      -ms-transform: rotateY(180deg);
-      -o-transform: rotateY(180deg);
-      transform: rotateY(180deg);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      background-color: whitesmoke;
+      border-radius: 10px;
     }
+    .back {
+      overflow: hidden;
+      z-index: -1;
+      display: block;
+      -webkit-transform: rotateY(180deg);
+      transform: rotateY(180deg);
+      box-sizing: border-box;
+      &:before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-size: 100% 100%;
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -ms-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+      }
+    }
+  }
+}
+
+@media (min-width: 850px) {
+  .deck {
+    width: 20%;
+    height: 150px;
   }
 }
 </style>

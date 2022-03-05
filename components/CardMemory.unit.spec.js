@@ -4,17 +4,20 @@ import Vuex from 'vuex'
 import CardMemory from '@/components/CardMemory'
 import { state, mutations, getters } from '@/store/memory.js'
 
-const storeConfig = {
-  state,
-  mutations,
-  getters,
-  namespaced: true,
-}
 describe('CardMemory', () => {
   const mountCardMemory = ({ propsData = {} }) => {
     const localVue = createLocalVue()
     localVue.use(Vuex)
-    const store = new Vuex.Store(storeConfig)
+    const store = new Vuex.Store({
+      modules: {
+        memory: {
+          state,
+          mutations,
+          getters,
+          namespaced: true,
+        },
+      },
+    })
     const wrapper = mount(CardMemory, {
       mocks: {
         $store: store,
@@ -37,5 +40,17 @@ describe('CardMemory', () => {
     expect(img.attributes().src).toEqual(
       'https://i.postimg.cc/nc34V7Ts/zoro.png'
     )
+  })
+
+  it('should emit an event when checkMemory is clicked', async () => {
+    const { wrapper } = mountCardMemory({
+      propsData: {
+        urlImg: 'https://i.postimg.cc/nc34V7Ts/zoro.png',
+        id: 3,
+        index: 0,
+      },
+    })
+    const card = wrapper.find('[data-testid="check-memory"]')
+    await card.trigger('click')
   })
 })
