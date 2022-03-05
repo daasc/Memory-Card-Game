@@ -7,67 +7,67 @@ export const state = () => ({
   cards: [
     {
       id: 1,
-      img: '',
+      img: 'https://i.postimg.cc/tCK3wygJ/jiraia.png',
     },
     {
       id: 2,
-      img: '',
+      img: 'https://i.postimg.cc/05HdG7Rp/levi.png',
     },
     {
       id: 3,
-      img: '',
+      img: 'https://i.postimg.cc/CxbGVtZN/naruto.png',
     },
     {
       id: 4,
-      img: '',
+      img: 'https://i.postimg.cc/BQL5mt4R/luffy.png',
     },
     {
       id: 5,
-      img: '',
+      img: 'https://i.postimg.cc/Jztbsndp/itati.png',
     },
     {
       id: 6,
-      img: '',
+      img: 'https://i.postimg.cc/7YH1yX18/saitama.png',
     },
     {
       id: 7,
-      img: '',
+      img: 'https://i.postimg.cc/qvY2yTP4/sasuke.png',
     },
     {
       id: 8,
-      img: '',
+      img: 'https://i.postimg.cc/nc34V7Ts/zoro.png',
     },
     {
       id: 1,
-      img: '',
+      img: 'https://i.postimg.cc/tCK3wygJ/jiraia.png',
     },
     {
       id: 2,
-      img: '',
+      img: 'https://i.postimg.cc/05HdG7Rp/levi.png',
     },
     {
       id: 3,
-      img: '',
+      img: 'https://i.postimg.cc/CxbGVtZN/naruto.png',
     },
     {
       id: 4,
-      img: '',
+      img: 'https://i.postimg.cc/BQL5mt4R/luffy.png',
     },
     {
       id: 5,
-      img: '',
+      img: 'https://i.postimg.cc/Jztbsndp/itati.png',
     },
     {
       id: 6,
-      img: '',
+      img: 'https://i.postimg.cc/7YH1yX18/saitama.png',
     },
     {
       id: 7,
-      img: '',
+      img: 'https://i.postimg.cc/qvY2yTP4/sasuke.png',
     },
     {
       id: 8,
-      img: '',
+      img: 'https://i.postimg.cc/nc34V7Ts/zoro.png',
     },
   ],
 })
