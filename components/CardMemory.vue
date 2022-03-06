@@ -1,6 +1,6 @@
 <template>
   <div class="deck" data-testid="check-memory" @click="check({ id, index })">
-    <div class="card clickcard">
+    <div class="card clickcard" :class="{ clicked: checked }">
       <div class="front face"></div>
       <div class="back face">
         <img data-testid="img" :src="urlImg" alt="" />
@@ -27,10 +27,15 @@ export default {
       required: false,
       default: 0,
     },
+    checked: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   methods: {
     check({ id, index }) {
-      this.$store.commit('memory/CHECK', { data: id, index })
+      this.$store.commit('memory/CHECK', { id, index, img: this.urlImg })
     },
   },
 }

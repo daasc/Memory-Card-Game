@@ -43,13 +43,14 @@ describe('CardMemory', () => {
   })
 
   it('should emit an event when checkMemory is clicked', async () => {
-    const { wrapper } = mountCardMemory({
+    const { wrapper, store } = mountCardMemory({
       propsData: {
         urlImg: 'https://i.postimg.cc/nc34V7Ts/zoro.png',
         id: 3,
         index: 0,
       },
     })
+    store.commit('memory/SET_MIXED')
     const card = wrapper.find('[data-testid="check-memory"]')
     await card.trigger('click')
   })

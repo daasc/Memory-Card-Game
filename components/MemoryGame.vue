@@ -7,6 +7,7 @@
       data-testid="check-memory"
       :url-img="item.img"
       :index="index"
+      :checked="item.checked"
     ></card-memory>
   </div>
 </template>
@@ -16,10 +17,10 @@ import CardMemory from '@/components/CardMemory'
 export default {
   name: 'MemoryGame',
   components: { CardMemory },
-  computed: {
-    cards() {
-      this.$store.commit('memory/SET_MIXED')
-      return this.$store.state.memory.mixedCard
+  props: {
+    cards: {
+      type: Array,
+      default: () => [],
     },
   },
 }
