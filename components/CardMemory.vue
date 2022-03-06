@@ -1,5 +1,10 @@
 <template>
-  <div class="deck" data-testid="check-memory" @click="check({ id, index })">
+  <div
+    class="deck"
+    data-testid="check-memory"
+    :class="{ disabled: checked }"
+    @click="check({ id })"
+  >
     <div class="card clickcard" :class="{ clicked: checked }">
       <div class="front face"></div>
       <div class="back face">
@@ -22,11 +27,6 @@ export default {
       required: false,
       default: 0,
     },
-    index: {
-      type: Number,
-      required: false,
-      default: 0,
-    },
     checked: {
       type: Boolean,
       required: false,
@@ -34,8 +34,8 @@ export default {
     },
   },
   methods: {
-    check({ id, index }) {
-      this.$store.commit('memory/CHECK', { id, index, img: this.urlImg })
+    check({ id }) {
+      this.$store.commit('memory/CHECK', { id, img: this.urlImg })
     },
   },
 }
@@ -55,10 +55,14 @@ export default {
     }
   }
 }
+.disabled {
+  pointer-events: none;
+  cursor: default;
+}
 
 @media (min-width: 0px) {
   .deck {
-    width: 19%;
+    width: 22%;
     height: 120px;
     position: relative;
     -webkit-perspective: 1000px;
@@ -82,8 +86,8 @@ export default {
       height: 100%;
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
-      background-color: whitesmoke;
       border-radius: 10px;
+      background-color: #17141d;
     }
     .back {
       overflow: hidden;
@@ -91,6 +95,7 @@ export default {
       display: block;
       -webkit-transform: rotateY(180deg);
       transform: rotateY(180deg);
+      background: white !important;
       box-sizing: border-box;
       &:before {
         content: '';
@@ -112,7 +117,7 @@ export default {
 @media (min-width: 850px) {
   .deck {
     width: 20%;
-    height: 150px;
+    height: 170px;
   }
 }
 </style>

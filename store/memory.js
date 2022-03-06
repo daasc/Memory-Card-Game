@@ -1,91 +1,11 @@
+import { cards } from '@/db/cards.json'
 export const state = () => ({
   attempts: 0,
   wins: 0,
   mixedCard: [],
   turns: 2,
   check: [],
-  cards: [
-    {
-      id: 1,
-      img: 'https://i.postimg.cc/tCK3wygJ/jiraia.png',
-      checked: false,
-    },
-    {
-      id: 2,
-      img: 'https://i.postimg.cc/05HdG7Rp/levi.png',
-      checked: false,
-    },
-    {
-      id: 3,
-      img: 'https://i.postimg.cc/CxbGVtZN/naruto.png',
-      checked: false,
-    },
-    {
-      id: 4,
-      img: 'https://i.postimg.cc/BQL5mt4R/luffy.png',
-      checked: false,
-    },
-    {
-      id: 5,
-      img: 'https://i.postimg.cc/Jztbsndp/itati.png',
-      checked: false,
-    },
-    {
-      id: 6,
-      img: 'https://i.postimg.cc/7YH1yX18/saitama.png',
-      checked: false,
-    },
-    {
-      id: 7,
-      img: 'https://i.postimg.cc/qvY2yTP4/sasuke.png',
-      checked: false,
-    },
-    {
-      id: 8,
-      img: 'https://i.postimg.cc/nc34V7Ts/zoro.png',
-      checked: false,
-    },
-    {
-      id: 9,
-      img: 'https://i.postimg.cc/tCK3wygJ/jiraia.png',
-      checked: false,
-    },
-    {
-      id: 10,
-      img: 'https://i.postimg.cc/05HdG7Rp/levi.png',
-      checked: false,
-    },
-    {
-      id: 11,
-      img: 'https://i.postimg.cc/CxbGVtZN/naruto.png',
-      checked: false,
-    },
-    {
-      id: 12,
-      img: 'https://i.postimg.cc/BQL5mt4R/luffy.png',
-      checked: false,
-    },
-    {
-      id: 13,
-      img: 'https://i.postimg.cc/Jztbsndp/itati.png',
-      checked: false,
-    },
-    {
-      id: 14,
-      img: 'https://i.postimg.cc/7YH1yX18/saitama.png',
-      checked: false,
-    },
-    {
-      id: 15,
-      img: 'https://i.postimg.cc/qvY2yTP4/sasuke.png',
-      checked: false,
-    },
-    {
-      id: 16,
-      img: 'https://i.postimg.cc/nc34V7Ts/zoro.png',
-      checked: false,
-    },
-  ],
+  alertWins: false,
 })
 
 export const mutations = {
@@ -95,6 +15,13 @@ export const mutations = {
   SET_ATTEMPTS: (state) => {
     state.attempts++
   },
+  SET_ALERTWINS: (state, payload) => {
+    state.alertWins = payload
+    if (!payload) {
+      state.attempts = 0
+      state.turns = 2
+    }
+  },
   CHECK: (state, payload) => {
     const index = state.mixedCard.findIndex((x) => x.id === payload.id)
     if (state.check.length === 0) {
@@ -102,6 +29,12 @@ export const mutations = {
       state.mixedCard[index].checked = true
     } else if (state.check[0].img === payload.img) {
       state.mixedCard[index].checked = true
+      const checked = state.mixedCard.filter((card) => card.checked).length
+      if (checked === 16) {
+        mutations.SET_WINS(state)
+        mutations.SET_ALERTWINS(state, true)
+        mutations.SET_MIXED(state)
+      }
       state.check = []
     } else {
       const indexD = state.mixedCard.findIndex(
@@ -124,7 +57,7 @@ export const mutations = {
   },
   SET_MIXED: (state) => {
     const n = 16
-    const sample = state.cards
+    const sample = cards
       .map((x) => ({ x, r: Math.random() }))
       .sort((a, b) => a.r - b.r)
       .map((a) => a.x)

@@ -6,7 +6,6 @@
       :key="index"
       data-testid="check-memory"
       :url-img="item.img"
-      :index="index"
       :checked="item.checked"
     ></card-memory>
   </div>
@@ -43,6 +42,7 @@ export default {
   .gamer {
     width: 60%;
     margin: 0 auto;
+    margin-bottom: 10px;
   }
 }
 </style>
