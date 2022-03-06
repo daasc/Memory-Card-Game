@@ -1,75 +1,11 @@
+import { cards } from '@/db/cards.json'
 export const state = () => ({
   attempts: 0,
   wins: 0,
   mixedCard: [],
   turns: 2,
   check: [],
-  cards: [
-    {
-      id: 1,
-      img: 'https://i.postimg.cc/tCK3wygJ/jiraia.png',
-    },
-    {
-      id: 2,
-      img: 'https://i.postimg.cc/05HdG7Rp/levi.png',
-    },
-    {
-      id: 3,
-      img: 'https://i.postimg.cc/CxbGVtZN/naruto.png',
-    },
-    {
-      id: 4,
-      img: 'https://i.postimg.cc/BQL5mt4R/luffy.png',
-    },
-    {
-      id: 5,
-      img: 'https://i.postimg.cc/Jztbsndp/itati.png',
-    },
-    {
-      id: 6,
-      img: 'https://i.postimg.cc/7YH1yX18/saitama.png',
-    },
-    {
-      id: 7,
-      img: 'https://i.postimg.cc/qvY2yTP4/sasuke.png',
-    },
-    {
-      id: 8,
-      img: 'https://i.postimg.cc/nc34V7Ts/zoro.png',
-    },
-    {
-      id: 1,
-      img: 'https://i.postimg.cc/tCK3wygJ/jiraia.png',
-    },
-    {
-      id: 2,
-      img: 'https://i.postimg.cc/05HdG7Rp/levi.png',
-    },
-    {
-      id: 3,
-      img: 'https://i.postimg.cc/CxbGVtZN/naruto.png',
-    },
-    {
-      id: 4,
-      img: 'https://i.postimg.cc/BQL5mt4R/luffy.png',
-    },
-    {
-      id: 5,
-      img: 'https://i.postimg.cc/Jztbsndp/itati.png',
-    },
-    {
-      id: 6,
-      img: 'https://i.postimg.cc/7YH1yX18/saitama.png',
-    },
-    {
-      id: 7,
-      img: 'https://i.postimg.cc/qvY2yTP4/sasuke.png',
-    },
-    {
-      id: 8,
-      img: 'https://i.postimg.cc/nc34V7Ts/zoro.png',
-    },
-  ],
+  alertWins: false,
 })
 
 export const mutations = {
@@ -79,14 +15,32 @@ export const mutations = {
   SET_ATTEMPTS: (state) => {
     state.attempts++
   },
+  SET_ALERTWINS: (state, payload) => {
+    state.alertWins = payload
+    if (!payload) {
+      state.attempts = 0
+      state.turns = 2
+    }
+  },
   CHECK: (state, payload) => {
+    const index = state.mixedCard.findIndex((x) => x.id === payload.id)
     if (state.check.length === 0) {
       state.check.push(payload)
-    } else if (state.check[0].data.id === payload.data.id) {
-      state.mixedCard[payload.index].checked = true
-      state.mixedCard[state.check[0].index].checked = true
+      state.mixedCard[index].checked = true
+    } else if (state.check[0].img === payload.img) {
+      state.mixedCard[index].checked = true
+      const checked = state.mixedCard.filter((card) => card.checked).length
+      if (checked === 16) {
+        mutations.SET_WINS(state)
+        mutations.SET_ALERTWINS(state, true)
+        mutations.SET_MIXED(state)
+      }
       state.check = []
     } else {
+      const indexD = state.mixedCard.findIndex(
+        (x) => x.id === state.check[0].id
+      )
+      state.mixedCard[indexD].checked = false
       state.check = []
       mutations.SET_TURNS(state)
     }
@@ -96,23 +50,22 @@ export const mutations = {
     if (state.turns < 0) {
       state.turns = 2
       state.attempts++
+      for (const card of state.mixedCard) {
+        card.checked = false
+      }
     }
   },
   SET_MIXED: (state) => {
-    state.mixedCard = getters.getCards(state)
-  },
-}
-
-export const getters = {
-  getCards(state) {
     const n = 16
-    const sample = state.cards
+    const sample = cards
       .map((x) => ({ x, r: Math.random() }))
       .sort((a, b) => a.r - b.r)
       .map((a) => a.x)
       .slice(0, n)
-    return [...sample]
+    state.mixedCard = sample
   },
 }
+
+export const getters = {}
 
 export const actions = {}

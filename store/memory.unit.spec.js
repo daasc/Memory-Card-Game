@@ -3,72 +3,6 @@ import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import { state, mutations, getters, actions } from '@/store/memory.js'
 
-const cards = [
-  {
-    id: 1,
-    img: 'https://i.postimg.cc/tCK3wygJ/jiraia.png',
-  },
-  {
-    id: 2,
-    img: 'https://i.postimg.cc/05HdG7Rp/levi.png',
-  },
-  {
-    id: 3,
-    img: 'https://i.postimg.cc/CxbGVtZN/naruto.png',
-  },
-  {
-    id: 4,
-    img: 'https://i.postimg.cc/BQL5mt4R/luffy.png',
-  },
-  {
-    id: 5,
-    img: 'https://i.postimg.cc/Jztbsndp/itati.png',
-  },
-  {
-    id: 6,
-    img: 'https://i.postimg.cc/7YH1yX18/saitama.png',
-  },
-  {
-    id: 7,
-    img: 'https://i.postimg.cc/qvY2yTP4/sasuke.png',
-  },
-  {
-    id: 8,
-    img: 'https://i.postimg.cc/nc34V7Ts/zoro.png',
-  },
-  {
-    id: 1,
-    img: 'https://i.postimg.cc/tCK3wygJ/jiraia.png',
-  },
-  {
-    id: 2,
-    img: 'https://i.postimg.cc/05HdG7Rp/levi.png',
-  },
-  {
-    id: 3,
-    img: 'https://i.postimg.cc/CxbGVtZN/naruto.png',
-  },
-  {
-    id: 4,
-    img: 'https://i.postimg.cc/BQL5mt4R/luffy.png',
-  },
-  {
-    id: 5,
-    img: 'https://i.postimg.cc/Jztbsndp/itati.png',
-  },
-  {
-    id: 6,
-    img: 'https://i.postimg.cc/7YH1yX18/saitama.png',
-  },
-  {
-    id: 7,
-    img: 'https://i.postimg.cc/qvY2yTP4/sasuke.png',
-  },
-  {
-    id: 8,
-    img: 'https://i.postimg.cc/nc34V7Ts/zoro.png',
-  },
-]
 const storeConfig = {
   state,
   mutations,
@@ -76,7 +10,7 @@ const storeConfig = {
   actions,
   namespaced: true,
 }
-describe('', () => {
+describe('Memory', () => {
   const createStore = () => {
     const localVue = createLocalVue()
     localVue.use(Vuex)
@@ -87,6 +21,10 @@ describe('', () => {
     const { store } = createStore()
     expect(store.state.wins).toEqual(0)
   })
+  it('should return the value of alertWins ', () => {
+    const { store } = createStore()
+    expect(store.state.alertWins).toBe(false)
+  })
   it('should return the value of check ', () => {
     const { store } = createStore()
     expect(store.state.check).toEqual([])
@@ -95,10 +33,7 @@ describe('', () => {
     const { store } = createStore()
     expect(store.state.mixedCard).toEqual([])
   })
-  it('should return the value of cards ', () => {
-    const { store } = createStore()
-    expect(store.state.cards).toEqual(cards)
-  })
+
   it('should return the value of turns ', () => {
     const { store } = createStore()
     expect(store.state.turns).toEqual(2)
@@ -114,9 +49,19 @@ describe('', () => {
     await store.commit('SET_WINS')
     expect(store.state.wins).toEqual(1)
   })
+  it('should save the new wins value when SET_ALERTWINS is called', async () => {
+    const { store } = createStore()
+    await store.commit('SET_ALERTWINS', true)
+    expect(store.state.alertWins).toBe(true)
+  })
   it('should add value in the check when CHECK is called', async () => {
     const { store } = createStore()
-    await store.commit('CHECK', { data: { id: 1 }, index: 0 })
+    await store.commit('SET_MIXED')
+    await store.commit('CHECK', {
+      id: 1,
+      img: 'https://i.postimg.cc/tCK3wygJ/jiraia.png',
+      checked: false,
+    })
     expect(store.state.check).toHaveLength(1)
   })
   it('should save mixed cards in mixedCard when SET_MIXED is called', async () => {
@@ -139,24 +84,36 @@ describe('', () => {
     expect(store.state.attempts).toEqual(1)
   })
 
-  it('should shuffle the order of cards array items when getCards is called', () => {
-    const { store } = createStore()
-    expect(store.getters.getCards).toHaveLength(16)
-  })
-  it('should check if the item is the same and if it is the value checked should be true', async () => {
+  fit('should check if the item is the same and if it is the value checked should be true', async () => {
     const { store } = createStore()
     await store.commit('SET_MIXED')
-    await store.commit('CHECK', { data: { id: 1 }, index: 0 })
-    await store.commit('CHECK', { data: { id: 1 }, index: 3 })
-    expect(store.state.mixedCard[0].checked).toBe(true)
+    await store.commit('CHECK', {
+      id: 1,
+      img: 'https://i.postimg.cc/tCK3wygJ/jiraia.png',
+      checked: false,
+    })
+    await store.commit('CHECK', {
+      id: 2,
+      img: 'https://i.postimg.cc/tCK3wygJ/jiraia.png',
+      checked: false,
+    })
+    // expect(store.state.mixedCard[0].checked).toBe(false)
   })
 
-  it('should check if the item is the same and if it is the value checked should be false', async () => {
+  fit('should check if the item is the same and if it is the value checked should be false', async () => {
     const { store } = createStore()
     await store.commit('SET_MIXED')
-    await store.commit('CHECK', { data: { id: 1 }, index: 0 })
-    await store.commit('CHECK', { data: { id: 3 }, index: 3 })
+    await store.commit('CHECK', {
+      id: 2,
+      img: 'https://i.postimg.cc/tCK3wygJ/jiraia.png',
+      checked: false,
+    })
+    await store.commit('CHECK', {
+      id: 2,
+      img: 'https://i.postimg.cc/tCK3wygJ/jiraia.png',
+      checked: false,
+    })
     expect(store.state.check).toHaveLength(0)
-    expect(store.state.turns).toEqual(1)
+    expect(store.state.turns).toEqual(2)
   })
 })
