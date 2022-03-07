@@ -1,4 +1,8 @@
 export default {
+  target: 'static',
+  router: {
+    base: '/Memory-Card-Game/',
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Memory-Card-Game',

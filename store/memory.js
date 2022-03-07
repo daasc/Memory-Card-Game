@@ -1,4 +1,3 @@
-import { cards } from '@/db/cards.json'
 export const state = () => ({
   attempts: 0,
   wins: 0,
@@ -55,9 +54,9 @@ export const mutations = {
       }
     }
   },
-  SET_MIXED: (state) => {
+  SET_MIXED: (state, payload) => {
     const n = 16
-    const sample = cards
+    const sample = payload
       .map((x) => ({ x, r: Math.random() }))
       .sort((a, b) => a.r - b.r)
       .map((a) => a.x)
