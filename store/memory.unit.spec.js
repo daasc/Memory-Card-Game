@@ -2,7 +2,7 @@
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import { state, mutations, getters, actions } from '@/store/memory.js'
-import { cards } from '@/db/cards.json'
+import { cards, test } from '@/db/cards.json'
 
 const storeConfig = {
   state,
@@ -109,7 +109,7 @@ describe('Memory', () => {
       img: 'https://i.postimg.cc/05HdG7Rp/levi.png',
       checked: false,
     })
-    // expect(store.state.mixedCard[0].checked).toBe(false)
+    expect(store.state.mixedCard[0].checked).toBe(true)
   })
 
   it('should check if the item is the same and if it is the value checked should be false', async () => {
@@ -138,5 +138,31 @@ describe('Memory', () => {
     })
     expect(store.state.check).toHaveLength(0)
     expect(store.state.turns).toEqual(1)
+  })
+
+  it('should show an alert with the final result after hitting all cards', async () => {
+    const { store } = createStore()
+    await store.commit('SET_MIXED', test)
+    await store.commit('CHECK', {
+      id: 1,
+      img: 'https://i.postimg.cc/05HdG7Rp/levi.png',
+      checked: true,
+    })
+    await store.commit('CHECK', {
+      id: 9,
+      img: 'https://i.postimg.cc/05HdG7Rp/levi.png',
+      checked: true,
+    })
+    expect(store.state.alertWins).toEqual(true)
+  })
+
+  it('should remove all checked objects marked true after error', async () => {
+    const { store } = createStore()
+    await store.commit('SET_MIXED', test)
+    await store.commit('SET_TURNS')
+    await store.commit('SET_TURNS')
+    await store.commit('SET_TURNS')
+    expect(store.state.alertWins).toEqual(false)
+    expect(store.state.mixedCard[0].checked).toBe(false)
   })
 })

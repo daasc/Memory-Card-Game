@@ -56,12 +56,14 @@ export const mutations = {
   },
   SET_MIXED: (state, payload) => {
     const n = 16
-    const sample = payload
-      .map((x) => ({ x, r: Math.random() }))
-      .sort((a, b) => a.r - b.r)
-      .map((a) => a.x)
-      .slice(0, n)
-    state.mixedCard = sample
+    if (payload) {
+      const sample = payload
+        .map((x) => ({ x, r: Math.random() }))
+        .sort((a, b) => a.r - b.r)
+        .map((a) => a.x)
+        .slice(0, n)
+      state.mixedCard = sample
+    }
   },
 }
 
