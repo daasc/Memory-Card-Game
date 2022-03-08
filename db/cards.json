@@ -80,5 +80,88 @@
       "img": "https://i.postimg.cc/nc34V7Ts/zoro.png",
       "checked": false
     }
+  ],
+
+  "test": [
+    {
+      "id": 1,
+      "img": "https://i.postimg.cc/tCK3wygJ/jiraia.png",
+      "checked": true
+    },
+    {
+      "id": 2,
+      "img": "https://i.postimg.cc/05HdG7Rp/levi.png",
+      "checked": true
+    },
+    {
+      "id": 3,
+      "img": "https://i.postimg.cc/CxbGVtZN/naruto.png",
+      "checked": true
+    },
+    {
+      "id": 4,
+      "img": "https://i.postimg.cc/BQL5mt4R/luffy.png",
+      "checked": true
+    },
+    {
+      "id": 5,
+      "img": "https://i.postimg.cc/Jztbsndp/itati.png",
+      "checked": true
+    },
+    {
+      "id": 6,
+      "img": "https://i.postimg.cc/7YH1yX18/saitama.png",
+      "checked": true
+    },
+    {
+      "id": 7,
+      "img": "https://i.postimg.cc/qvY2yTP4/sasuke.png",
+      "checked": true
+    },
+    {
+      "id": 8,
+      "img": "https://i.postimg.cc/nc34V7Ts/zoro.png",
+      "checked": true
+    },
+    {
+      "id": 9,
+      "img": "https://i.postimg.cc/tCK3wygJ/jiraia.png",
+      "checked": true
+    },
+    {
+      "id": 10,
+      "img": "https://i.postimg.cc/05HdG7Rp/levi.png",
+      "checked": true
+    },
+    {
+      "id": 11,
+      "img": "https://i.postimg.cc/CxbGVtZN/naruto.png",
+      "checked": true
+    },
+    {
+      "id": 12,
+      "img": "https://i.postimg.cc/BQL5mt4R/luffy.png",
+      "checked": true
+    },
+    {
+      "id": 13,
+      "img": "https://i.postimg.cc/Jztbsndp/itati.png",
+      "checked": true
+    },
+    {
+      "id": 14,
+      "img": "https://i.postimg.cc/7YH1yX18/saitama.png",
+      "checked": true
+    },
+    {
+      "id": 15,
+      "img": "https://i.postimg.cc/qvY2yTP4/sasuke.png",
+      "checked": true
+    },
+    {
+      "id": 16,
+      "img": "https://i.postimg.cc/nc34V7Ts/zoro.png",
+      "checked": true
+    }
   ]
 }

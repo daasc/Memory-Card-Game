@@ -2,11 +2,11 @@
 import { createLocalVue, mount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import MemoryGame from '@/components/MemoryGame'
-import CardMemory from '@/components/CardMemory'
+import AlertWins from '@/components/AlertWins.vue'
+import Index from '@/pages/index'
 import { state, mutations, getters } from '@/store/memory.js'
-import { cards } from '@/db/cards.json'
-describe('MemoryGame', () => {
-  const mountMemoryGame = ({ propsData = [] }) => {
+describe('Index', () => {
+  const mountIndex = () => {
     const localVue = createLocalVue()
     localVue.use(Vuex)
     const store = new Vuex.Store({
@@ -19,26 +19,26 @@ describe('MemoryGame', () => {
         },
       },
     })
-    const wrapper = mount(MemoryGame, {
+    const wrapper = mount(Index, {
       mocks: {
         $store: store,
       },
-
-      propsData,
     })
     return { store, wrapper }
   }
   it('should mount the component ', () => {
-    const { wrapper } = mountMemoryGame({})
+    const { wrapper } = mountIndex()
     expect(wrapper.vm).toBeDefined()
   })
-  it('should mount the component default props ', () => {
-    const { wrapper } = mountMemoryGame({ propsData: null })
-    expect(wrapper.vm).toBeDefined()
+  it('should find the MemoryCard component', () => {
+    const { wrapper } = mountIndex()
+    const memory = wrapper.findComponent(MemoryGame)
+    expect(memory.vm).toBeDefined()
   })
-  it('should contain 16 cardMemory', () => {
-    const { wrapper } = mountMemoryGame({ propsData: { cards } })
-    const card = wrapper.findAllComponents(CardMemory)
-    expect(card).toHaveLength(16)
+
+  it('should not found the AlertWins component', () => {
+    const { wrapper } = mountIndex()
+    const alert = wrapper.findComponent(AlertWins)
+    expect(alert.exists()).toBe(false)
   })
 })

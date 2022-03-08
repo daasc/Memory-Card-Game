@@ -3,6 +3,7 @@ import { createLocalVue, mount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import CardMemory from '@/components/CardMemory'
 import { state, mutations, getters } from '@/store/memory.js'
+import { cards } from '@/db/cards.json'
 
 describe('CardMemory', () => {
   const mountCardMemory = ({ propsData = {} }) => {
@@ -50,7 +51,7 @@ describe('CardMemory', () => {
         index: 0,
       },
     })
-    store.commit('memory/SET_MIXED')
+    store.commit('memory/SET_MIXED', cards)
     const card = wrapper.find('[data-testid="check-memory"]')
     await card.trigger('click')
   })
