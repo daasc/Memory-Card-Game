@@ -48,7 +48,7 @@ export default {
     box-shadow: 0 0 0 #aaa;
   }
   .back {
-    box-shadow: 5px 5px 5px #aaa;
+    // box-shadow: 5px 5px 5px #aaa;
     img {
       width: 100%;
       height: 100%;
@@ -83,11 +83,15 @@ export default {
     .face {
       position: absolute;
       width: 100%;
+      background: url(/Memory-Card-Game/_nuxt/assets/img/jogo.png);
       height: 100%;
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
       border-radius: 10px;
-      background-color: #17141d;
+      background-size: 50% 80%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: #72e1dd;
     }
     .back {
       overflow: hidden;

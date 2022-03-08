@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <memory-game :cards="cards"></memory-game>
     <alert-wins v-if="alertWins"></alert-wins>
   </div>
@@ -32,4 +32,18 @@ export default {
   },
 }
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+@media (min-width: 0px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+  }
+}
+@media (min-width: 1050px) {
+  .main {
+    height: 100%;
+  }
+}
+</style>

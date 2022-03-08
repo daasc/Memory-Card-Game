@@ -50,8 +50,6 @@ export default {
   .results {
     width: 40%;
     margin: 0 auto;
-    margin-top: 10px;
-    margin-bottom: 50px;
   }
 }
 </style>
