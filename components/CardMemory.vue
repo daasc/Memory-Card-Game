@@ -62,7 +62,7 @@ export default {
 
 @media (min-width: 0px) {
   .deck {
-    width: 22%;
+    width: 20%;
     height: 120px;
     position: relative;
     -webkit-perspective: 1000px;
@@ -83,7 +83,7 @@ export default {
     .face {
       position: absolute;
       width: 100%;
-      background: url(/Memory-Card-Game/_nuxt/assets/img/jogo.png);
+      background: url(https://i.postimg.cc/fWt20NpY/jogo.png);
       height: 100%;
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;

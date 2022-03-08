@@ -32,9 +32,8 @@ export default {
   .results {
     display: flex;
     width: 100%;
-    justify-content: space-around;
-    margin-top: 10px;
-    margin-bottom: 25px;
+    justify-content: center;
+    margin: 10px 5px 15px 5px;
     div {
       background: white;
       padding: 10px;
@@ -50,6 +49,7 @@ export default {
   .results {
     width: 40%;
     margin: 0 auto;
+    justify-content: space-around;
   }
 }
 </style>
