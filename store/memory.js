@@ -1,3 +1,5 @@
+import { cards } from '@/db/cards.json'
+
 export const state = () => ({
   attempts: 0,
   wins: 0,
@@ -32,7 +34,7 @@ export const mutations = {
       if (checked === 16) {
         mutations.SET_WINS(state)
         mutations.SET_ALERTWINS(state, true)
-        mutations.SET_MIXED(state)
+        mutations.SET_MIXED(state, cards)
       }
       state.check = []
     } else {
